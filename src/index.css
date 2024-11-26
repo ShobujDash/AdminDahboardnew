@@ -1,0 +1,371 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/*
+  Based on TailwindCSS recommendations,
+  consider using classes instead of the `@apply` directive
+  @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
+*/
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
+* {
+  @apply box-border m-0 p-0;
+}
+a {
+  @apply no-underline;
+}
+li {
+  list-style: none;
+}
+:root {
+  --poppins: "Poppins", sans-serif;
+  --lato: "Lato", sans-serif;
+  --light: #f9f9f9;
+  --blue: #3c91e6;
+  --light-blue: #cfe8ff;
+  --grey: #eee;
+  --dark-grey: #aaaaaa;
+  --dark: #342e37;
+  --red: #db504a;
+  --yellow: #ffce26;
+  --light-yellow: #fff2c6;
+  --orange: #fd7238;
+  --light-orange: #ffe0d3;
+}
+html {
+  @apply overflow-x-hidden;
+}
+body.dark {
+  --light: #0c0c1e;
+  --grey: #060714;
+  --dark: #fbfbfb;
+}
+body {
+  @apply overflow-x-hidden;
+  background: var(--grey);
+}
+
+/* SIDEBAR */
+#sidebar {
+  @apply fixed w-[280px] h-full z-[2000] transition-[0.3s] duration-[ease] overflow-x-hidden left-0 top-0;
+  background: var(--light);
+  font-family: var(--lato);
+  scrollbar-width: none;
+}
+#sidebar::--webkit-scrollbar {
+  @apply hidden;
+}
+#sidebar.hide {
+  @apply w-[60px];
+}
+#sidebar .brand {
+  @apply text-2xl font-bold h-14 flex items-center text-[color:var(--blue)] sticky z-[500] box-content pb-5 left-0 top-0;
+  background: var(--light);
+}
+#sidebar .brand .bx {
+  @apply min-w-[60px] flex justify-center;
+}
+#sidebar .side-menu {
+  @apply w-full mt-12;
+}
+#sidebar .side-menu li {
+  @apply h-12 ml-1.5 p-1 rounded-[48px_0_0_48px];
+  background: transparent;
+}
+#sidebar .side-menu li.active {
+  @apply relative before:content-[''] before:absolute before:w-10 before:h-10 before:shadow-[20px_20px_0_var(--grey)] before:z-[-1] before:rounded-[50%] before:right-0 before:-top-10 after:content-[''] after:absolute after:w-10 after:h-10 after:shadow-[20px_-20px_0_var(--grey)] after:z-[-1] after:rounded-[50%] after:right-0 after:-bottom-10;
+  background: var(--grey);
+}
+#sidebar .side-menu li a {
+  @apply w-full h-full flex items-center text-base text-[color:var(--dark)] whitespace-nowrap overflow-x-hidden rounded-[48px];
+  background: var(--light);
+}
+#sidebar .side-menu.top li.active a {
+  @apply text-[color:var(--blue)];
+}
+#sidebar.hide .side-menu li a {
+  @apply w-[calc(48px_-_(4px_*_2))] transition-[width] duration-[0.3s] ease-[ease];
+}
+#sidebar .side-menu li a.logout {
+  @apply text-[color:var(--red)];
+}
+#sidebar .side-menu.top li a:hover {
+  @apply text-[color:var(--blue)];
+}
+#sidebar .side-menu li a .bx {
+  @apply min-w-[calc(60px_-_((4px_+_6px)_*_2))] flex justify-center;
+}
+/* SIDEBAR */
+
+/* CONTENT */
+#content {
+  @apply relative w-[calc(100%_-_280px)] transition-[0.3s] duration-[ease] left-[280px];
+}
+#sidebar.hide ~ #content {
+  @apply w-[calc(100%_-_60px)] left-[60px];
+}
+
+/* NAVBAR */
+#content nav {
+  @apply h-14 flex items-center gap-6 sticky z-[1000] px-6 py-0 left-0 top-0 before:content-[''] before:absolute before:w-10 before:h-10 before:shadow-[-20px_-20px_0_var(--light)] before:rounded-[50%] before:left-0 before:-bottom-10;
+  background: var(--light);
+  font-family: var(--lato);
+}
+#content nav a {
+  @apply text-[color:var(--dark)];
+}
+#content nav .bx.bx-menu {
+  @apply cursor-pointer text-[color:var(--dark)];
+}
+#content nav .nav-link {
+  @apply text-base transition-[0.3s] duration-[ease] hover:text-[color:var(--blue)];
+}
+#content nav form {
+  @apply max-w-[400px] w-full mr-auto;
+}
+#content nav form .form-input {
+  @apply flex items-center h-9;
+}
+#content nav form .form-input input {
+  @apply grow h-full w-full text-[color:var(--dark)] px-4 py-0 rounded-[36px_0_0_36px] border-[none];
+  background: var(--grey);
+  outline: none;
+}
+#content nav form .form-input button {
+  @apply w-9 h-full flex justify-center items-center text-[color:var(--light)] text-lg cursor-pointer rounded-[0_36px_36px_0] border-[none];
+  background: var(--blue);
+  outline: none;
+}
+#content nav .notification {
+  @apply text-xl relative;
+}
+#content nav .notification .num {
+  @apply absolute w-5 h-5 border-[color:var(--light)] text-[color:var(--light)] font-bold text-xs flex justify-center items-center rounded-[50%] border-2 border-solid -right-1.5 -top-1.5;
+  background: var(--red);
+}
+#content nav .profile img {
+  @apply w-9 h-9 object-cover rounded-[50%];
+}
+#content nav .switch-mode {
+  @apply block min-w-[50px] h-[25px] cursor-pointer relative rounded-[25px] before:content-[''] before:absolute before:w-[calc(25px_-_4px)] before:transition-all before:duration-[0.3s] before:ease-[ease] before:rounded-[50%] before:left-0.5 before:inset-y-0.5;
+  background: var(--grey);
+}
+#content nav .switch-mode::before {
+  background: var(--blue);
+}
+#content nav #switch-mode:checked + .switch-mode::before {
+  @apply left-[calc(100%_-_(25px_-_4px)_-_2px)];
+}
+/* NAVBAR */
+
+/* MAIN */
+#content main {
+  @apply w-full max-h-[calc(100vh_-_56px)] overflow-y-auto px-6 py-9;
+  font-family: var(--poppins);
+}
+#content main .head-title {
+  @apply flex items-center justify-between gap-4 flex-wrap;
+}
+#content main .head-title .left h1 {
+  @apply text-4xl font-semibold text-[color:var(--dark)] mb-2.5;
+}
+#content main .head-title .left .breadcrumb {
+  @apply flex items-center gap-4;
+}
+#content main .head-title .left .breadcrumb li {
+  @apply text-[color:var(--dark)];
+}
+#content main .head-title .left .breadcrumb li a {
+  @apply text-[color:var(--dark-grey)] pointer-events-none;
+}
+#content main .head-title .left .breadcrumb li a.active {
+  @apply text-[color:var(--blue)];
+  pointer-events: unset;
+}
+#content main .head-title .btn-download {
+  @apply h-9 text-[color:var(--light)] flex justify-center items-center gap-2.5 font-medium px-4 py-0 rounded-[36px];
+  background: var(--blue);
+}
+#content main .box-info {
+  @apply grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6 mt-9;
+}
+#content main .box-info li {
+  @apply flex items-center gap-6 p-6 rounded-[20px];
+  background: var(--light);
+}
+#content main .box-info li .bx {
+  @apply w-20 h-20 text-4xl flex justify-center items-center rounded-[10px];
+}
+#content main .box-info li:nth-child(1) .bx {
+  @apply text-[color:var(--blue)];
+  background: var(--light-blue);
+}
+#content main .box-info li:nth-child(2) .bx {
+  @apply text-[color:var(--yellow)];
+  background: var(--light-yellow);
+}
+#content main .box-info li:nth-child(3) .bx {
+  @apply text-[color:var(--orange)];
+  background: var(--light-orange);
+}
+#content main .box-info li .text h3 {
+  @apply text-2xl font-semibold text-[color:var(--dark)];
+}
+#content main .box-info li .text p {
+  @apply text-[color:var(--dark)];
+}
+#content main .table-data {
+  @apply flex flex-wrap gap-6 w-full text-[color:var(--dark)] mt-6;
+}
+#content main .table-data > div {
+  @apply overflow-x-auto p-6 rounded-[20px];
+  background: var(--light);
+}
+#content main .table-data .head {
+  @apply flex items-center gap-4 mb-6;
+}
+#content main .table-data .head h3 {
+  @apply text-2xl font-semibold mr-auto;
+}
+#content main .table-data .head .bx {
+  @apply cursor-pointer;
+}
+#content main .table-data .order {
+  @apply grow basis-[500px];
+}
+#content main .table-data .order table {
+  @apply w-full border-collapse;
+}
+#content main .table-data .order table th {
+  @apply text-[13px] text-left border-b-[color:var(--grey)] pb-3 border-b border-solid;
+}
+#content main .table-data .order table td {
+  @apply px-0 py-4;
+}
+#content main .table-data .order table tr td:first-child {
+  @apply flex items-center gap-3 pl-1.5;
+}
+#content main .table-data .order table td img {
+  @apply w-9 h-9 object-cover rounded-[50%];
+}
+#content main .table-data .order table tbody tr:hover {
+  background: var(--grey);
+}
+#content main .table-data .order table tr td .status {
+  @apply text-[10px] text-[color:var(--light)] font-bold px-4 py-1.5 rounded-[20px];
+}
+#content main .table-data .order table tr td .status.completed {
+  background: var(--blue);
+}
+#content main .table-data .order table tr td .status.process {
+  background: var(--yellow);
+}
+#content main .table-data .order table tr td .status.pending {
+  background: var(--orange);
+}
+#content main .table-data .todo {
+  @apply grow basis-[300px];
+}
+#content main .table-data .todo .todo-list {
+  @apply w-full;
+}
+#content main .table-data .todo .todo-list li {
+  @apply w-full flex justify-between items-center mb-4 px-5 py-3.5 rounded-[10px] last:mb-0;
+  background: var(--grey);
+}
+#content main .table-data .todo .todo-list li .bx {
+  @apply cursor-pointer;
+}
+#content main .table-data .todo .todo-list li.completed {
+  @apply border-l-[color:var(--blue)] border-l-[10px] border-solid;
+}
+#content main .table-data .todo .todo-list li.not-completed {
+  @apply border-l-[color:var(--orange)] border-l-[10px] border-solid;
+}
+/* MAIN */
+/* CONTENT */
+@media screen and (max-width: 768px) {
+  #sidebar {
+    @apply w-[200px];
+  }
+  #content {
+    @apply w-[calc(100%_-_60px)] left-[200px];
+  }
+  #content nav .nav-link {
+    @apply hidden;
+  }
+}
+@media screen and (max-width: 576px) {
+  #content nav form .form-input input {
+    @apply hidden;
+  }
+  #content nav form .form-input button {
+    @apply w-auto h-auto text-[color:var(--dark)] rounded-[none];
+    background: transparent;
+  }
+  #content nav form.show .form-input input {
+    @apply block w-full;
+  }
+  #content nav form.show .form-input button {
+    @apply w-9 h-full text-[color:var(--light)] rounded-[0_36px_36px_0];
+    background: var(--red);
+  }
+  #content nav form.show ~ .notification,
+  #content nav form.show ~ .profile {
+    @apply hidden;
+  }
+  #content main .box-info {
+    @apply grid-cols-[1fr];
+  }
+  #content main .table-data .head {
+    @apply min-w-[420px];
+  }
+  #content main .table-data .order table {
+    @apply min-w-[420px];
+  }
+  #content main .table-data .todo .todo-list {
+    @apply min-w-[420px];
+  }
+}
+.dropdown-menu {
+  @apply relative;
+}
+.dropdown-menu > button:hover {
+  background: #080808;
+}
+.dropdown-menu button {
+  @apply flex items-center gap-2.5 w-[230px] h-16 text-[black] cursor-pointer text-base px-4 py-0 rounded-xl border-0;
+  background: #17202a;
+  font-family: "Cambria";
+}
+.dropdown-menu > button {
+  @apply relative z-10 transition-[0.3s];
+}
+.dropdown-menu.open > button {
+  /*   background: #080808; */
+  background: -webkit-linear-gradient(to bottom, #0072ff, #00c6ff);
+  background: linear-gradient(to bottom, #0072ff, #00c6ff);
+}
+.dropdown-menu button #dropdown-icon {
+  @apply ml-auto;
+}
+.dropdown__menu-labels {
+  @apply absolute overflow-hidden z-[1] w-full opacity-0 invisible transition-[0.4s] rounded-xl border-t-0 left-0 top-[70px];
+
+  /*   border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px; */
+  background: #17202a;
+  translate: 0 -20px;
+}
+.dropdown__menu-labels button {
+  @apply w-full h-14 rounded-none border-0;
+}
+.dropdown__menu-labels button:hover {
+  background: #080808;
+}
+.dropdown-menu.open .dropdown__menu-labels {
+  @apply opacity-100 visible;
+  translate: 0;
+}
